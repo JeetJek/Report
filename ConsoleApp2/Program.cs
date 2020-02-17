@@ -8,13 +8,16 @@ namespace ConsoleApp2
     {
         static void Main(string[] args)
         {
+            if (args.Length < 1)
+                return;
+
             Word.Application app = new Word.Application();
-            Object fileName = @"D:\тест.docx";
+            Object fileName = args[0];
             Object missing = Type.Missing;
             app.Documents.Open(ref fileName);
             Word.Find find = app.Selection.Find;
-            find.Text = "2";
-            find.Replacement.Text = "два";
+            find.Text = "#Date#";
+            find.Replacement.Text = DateTime.Today.ToString();
             Object wrap = Word.WdFindWrap.wdFindContinue;
             Object replace = Word.WdReplace.wdReplaceAll;
             find.Execute(FindText: Type.Missing,
